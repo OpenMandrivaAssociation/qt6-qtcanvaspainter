@@ -5,7 +5,7 @@
 %define _qtdir %{_libdir}/qt%{major}
 
 Name:		qt6-qtcanvaspainter
-Version:	6.11.2
+Version:	6.12.0
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtcanvaspainter.git
@@ -32,18 +32,25 @@ BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(vulkan)
 License:	GPLv3
-# Tech preview in 6.11: library is GPL-3.0-only (no LGPL)
+# Supported as of 6.12. Library is GPL-3.0-only (no LGPL edition).
 
 %description
 Accelerated 2D painting API for Qt Quick and QRhi-based render targets.
 HTML Canvas 2D-style painting with adjustable antialiasing, custom
-brushes, and QRhi backends. Tech preview in Qt 6.11.
+brushes, and QRhi backends. Supported as of Qt 6.12. The library is
+GPL-3.0-only (there is no LGPL edition).
 
 %define extra_devel_files_CanvasPainter \
 %{_qtdir}/bin/qcshadergen \
 %{_qtdir}/sbom/*
 
-%qt6libs CanvasPainter
+%define extra_files_Canvas2D \
+%{_qtdir}/qml/QtCanvas2D
+
+%define extra_devel_files_Canvas2D \
+%{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6canvas2dplugin*.cmake
+
+%qt6libs CanvasPainter Canvas2D
 
 %package examples
 Summary:	Examples for the Qt %{major} Canvas Painter module
