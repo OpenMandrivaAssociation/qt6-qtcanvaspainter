@@ -50,6 +50,12 @@ GPL-3.0-only (there is no LGPL edition).
 %define extra_devel_files_Canvas2D \
 %{_qtdir}/lib/cmake/Qt6Qml/QmlPlugins/Qt6canvas2dplugin*.cmake
 
+# Canvas2DPrivate is an INTERNAL_MODULE, so Qt does not install
+# Qt6Canvas2DPrivatePrivate. The generated cmake config still requires it.
+# The generator emits one rich dependency, "(cmake(qt6...) or cmake(Qt6...))".
+# It does not start with "cmake(", so the filter must not be anchored.
+%global __requires_exclude cmake\\(qt6canvas2dprivateprivate\\)|cmake\\(Qt6Canvas2DPrivatePrivate\\)
+
 %qt6libs CanvasPainter Canvas2D
 
 %package examples
