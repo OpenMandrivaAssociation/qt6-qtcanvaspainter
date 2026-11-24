@@ -54,7 +54,10 @@ GPL-3.0-only (there is no LGPL edition).
 # Qt6Canvas2DPrivatePrivate. The generated cmake config still requires it.
 # The generator emits one rich dependency, "(cmake(qt6...) or cmake(Qt6...))".
 # It does not start with "cmake(", so the filter must not be anchored.
-%global __requires_exclude cmake\\(qt6canvas2dprivateprivate\\)|cmake\\(Qt6Canvas2DPrivatePrivate\\)
+# QtCanvas2D's qmldir also depends on QtCanvasPainter. That name is the
+# C++ library, not a QML module, so nothing provides qml(QtCanvasPainter).
+# libQt6CanvasPainter is already an ELF requirement.
+%global __requires_exclude cmake\\(qt6canvas2dprivateprivate\\)|cmake\\(Qt6Canvas2DPrivatePrivate\\)|qml\\(QtCanvasPainter\\)
 
 %qt6libs CanvasPainter Canvas2D
 
